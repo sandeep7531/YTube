@@ -48,13 +48,12 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 // Middleware for before save in database it's encrypt the password
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+userSchema.pre("save", async function () {
+  if (!this.isModified("password")) return;
   this.password = await bcrypt.hash(this.password, 10);
-  next();
 });
 
-// MEthod for checking password is correct after encrypt  
+// MEthod for checking password is correct after encrypt
 userSchema.methods.isPasswordCorrect = async function (password) {
   return bcrypt.compare(password, this.password);
 };

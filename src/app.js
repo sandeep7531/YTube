@@ -3,13 +3,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 const app = express();
-app.use((req, res, next) => {
-  console.log("🔥 REQUEST RECEIVED");
-  console.log("Method:", req.method);
-  console.log("URL:", req.originalUrl);
-
-  next();
-});
 
 app.use(
   cors({
