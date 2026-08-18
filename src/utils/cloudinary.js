@@ -7,17 +7,17 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_SECRET,
 });
 
-
 const uploadOnCloudinary = async (localFilePath) => {
   try {
     if (!localFilePath) return null;
     const res = await cloudinary.uploader.upload(localFilePath, {
       resource_type: "auto",
     });
+    fs.unlinkSync(localFilePath);
     return res;
   } catch (error) {
     fs.unlinkSync(localFilePath);
-    console.error("Someting went wong with cloudinary",error);
+    console.error("Someting went wong with cloudinary", error);
     return null;
   }
 };
